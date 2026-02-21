@@ -1,78 +1,93 @@
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Splash Exit
+    const gateBtn = document.getElementById('gate-btn');
+    gateBtn.addEventListener('click', () => {
+        document.getElementById('splash-screen').style.opacity = '0';
+        setTimeout(() => document.getElementById('splash-screen').style.display = 'none', 500);
+    });
 
-let particlesArray;
-let mouse = { x: null, y: null, radius: 150 };
+    // 2. Mouse-Responsive Neural Network Background
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-// Track mouse movement
-window.addEventListener('mousemove', (event) => {
-    mouse.x = event.x;
-    mouse.y = event.y;
-});
+    let particles = [];
+    const mouse = { x: null, y: null, radius: 180 };
 
-class Particle {
-    constructor(x, y, directionX, directionY, size, color) {
-        this.x = x; this.y = y;
-        this.directionX = directionX; this.directionY = directionY;
-        this.size = size; this.color = color;
-    }
-    draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        ctx.fillStyle = 'rgba(255,255,255,0.3)';
-        ctx.fill();
-    }
-    update() {
-        // Move particles away from mouse
-        let dx = mouse.x - this.x;
-        let dy = mouse.y - this.y;
-        let distance = Math.sqrt(dx*dx + dy*dy);
-        if (distance < mouse.radius) {
-            if (mouse.x < this.x && this.x < canvas.width - this.size * 10) this.x += 10;
-            if (mouse.x > this.x && this.x > this.size * 10) this.x -= 10;
-            if (mouse.y < this.y && this.y < canvas.height - this.size * 10) this.y += 10;
-            if (mouse.y > this.y && this.y > this.size * 10) this.y -= 10;
+    window.addEventListener('mousemove', (e) => {
+        mouse.x = e.x;
+        mouse.y = e.y;
+    });
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.4;
+            this.vy = (Math.random() - 0.5) * 0.4;
+            this.baseX = this.x;
+            this.baseY = this.y;
         }
-        
-        if (this.x > canvas.width || this.x < 0) this.directionX = -this.directionX;
-        if (this.y > canvas.height || this.y < 0) this.directionY = -this.directionY;
-        this.x += this.directionX; this.y += this.directionY;
-        this.draw();
+        update() {
+            // Drift movement
+            this.x += this.vx;
+            this.y += this.vy;
+            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+            // Mouse reaction
+            let dx = mouse.x - this.x;
+            let dy = mouse.y - this.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < mouse.radius) {
+                this.x -= dx / 20;
+                this.y -= dy / 20;
+            }
+        }
+        draw() {
+            ctx.fillStyle = 'rgba(0, 242, 254, 0.6)';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
     }
-}
 
-function init() {
-    particlesArray = [];
-    let num = (canvas.height * canvas.width) / 9000;
-    for (let i = 0; i < num; i++) {
-        let size = Math.random() * 2 + 1;
-        let x = Math.random() * innerWidth;
-        let y = Math.random() * innerHeight;
-        let dx = (Math.random() * 1) - 0.5;
-        let dy = (Math.random() * 1) - 0.5;
-        particlesArray.push(new Particle(x, y, dx, dy, size));
+    function init() {
+        particles = [];
+        for (let i = 0; i < 90; i++) particles.push(new Particle());
     }
-}
 
-function animate() {
-    requestAnimationFrame(animate);
-    ctx.clearRect(0,0, innerWidth, innerHeight);
-    particlesArray.forEach(p => p.update());
-}
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((p, i) => {
+            p.update();
+            p.draw();
+            // Connection logic
+            for (let j = i; j < particles.length; j++) {
+                let dx = p.x - particles[j].x;
+                let dy = p.y - particles[j].y;
+                let dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 150) {
+                    ctx.strokeStyle = `rgba(0, 242, 254, ${1 - dist / 150})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(p.x, p.y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        });
+        requestAnimationFrame(animate);
+    }
 
-// Scroll Reveal Logic
-window.addEventListener('scroll', () => {
-    document.querySelectorAll('.reveal').forEach(el => {
-        if (el.getBoundingClientRect().top < window.innerHeight - 100) el.classList.add('active');
+    init();
+    animate();
+
+    // Responsive Canvas
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        init();
     });
 });
-
-window.addEventListener('resize', () => {
-    canvas.width = innerWidth; canvas.height = innerHeight;
-    init();
-});
-
-init();
-animate();
