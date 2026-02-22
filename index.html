@@ -25,38 +25,42 @@
             <div class="logo">BHAVIN DAMA<span>.</span></div>
             <ul class="nav-links">
                 <li><a href="#home" class="glow-hover">Home</a></li>
-                <li><a href="#analytics" class="glow-hover">Stats</a></li>
-                <li><a href="#projects" class="glow-hover">Work</a></li>
-                <li><a href="#certificates" class="glow-hover">Awards</a></li>
+                <li><a href="#analytics" class="glow-hover">Academic</a></li>
+                <li><a href="#projects" class="glow-hover">Projects</a></li>
+                <li><a href="#certificates" class="glow-hover">Certificates</a></li>
                 <li><a href="#contact" class="glow-hover">Contact</a></li>
             </ul>
             <div class="nav-right">
                 <div class="socials">
-                    <a href="#" class="glow-hover"><i class="fab fa-github"></i></a>
-                    <a href="#" class="glow-hover"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/bhavindama" class="glow-hover"><i class="fab fa-github"></i></a>
+                    <a href="https://linkedin.com/in/bhavin-dama-23bd" class="glow-hover"><i class="fab fa-linkedin"></i></a>
                 </div>
 <a href="resume.pdf" class="resume-btn led-blink" data-tooltip="Download resume for more details" target="_blank">RESUME</a>            </div>
         </div>
     </nav>
 
     <main id="main-content">
-        <section id="home" class="sec-padding">
-            <div class="glass-base hero-inner">
-                <span class="status-tag">Driven by data, focused on results.</span>
-                <h1>Architecting <br><span class="highlight">Intelligence.</span></h1>
-                <p>Data Architect & AI Specialist. Turning raw data into predictive power.</p>
-                <a href="#projects" class="action-btn">EXPLORE WORK</a>
-            </div>
-        </section>
+        <section id="home" class="sec-padding" style="display: flex; justify-content: center; align-items: center; min-height: 100vh; text-align: center;"> 
+  
+  <!-- Inner content container -->
+  <div class="glass-base hero-inner" style="max-width: 800px; width: 100%;"> 
+    <span class="status-tag">Driven by data, focused on results.</span> 
+    <h1>Architecting <br><span class="highlight">Intelligence.</span></h1> 
+    <p>Data Architect & AI Specialist. Turning raw data into predictive power.</p> 
+    <a href="#projects" class="action-btn">EXPLORE WORK</a> 
+  </div> 
 
+</section>
         
-        <section id="analytics" class="sec-padding">
+      <section id="analytics" class="sec-padding">
     <div class="glass-base">
         <h2 class="section-title">Academic Architecture</h2>
         <div class="chart-flex">
             <div class="graph-viewport">
+                <!-- THE FIX: The 'd' attribute now follows the SPI values -->
+                <!-- Math used: Y = 200 - (SPI * 20) -->
                 <svg class="line-chart-svg" viewBox="0 0 500 200" preserveAspectRatio="none">
-                    <path d="M50,150 L150,136 L250,124 L350,110 L450,116" 
+                    <path d="M50,48.4 L150,51 L250,14.8 L350,34.8 L450,14.8" 
                           fill="none" 
                           stroke="var(--accent)" 
                           stroke-width="3" 
@@ -65,11 +69,12 @@
                 </svg>
 
                 <div class="column-chart">
-                    <div class="bar-wrapper"><div class="bar" style="height: 75%;"><span>7.58</span></div><p>Sem1</p></div>
-                    <div class="bar-wrapper"><div class="bar" style="height: 82%;"><span>7.45</span></div><p>Sem2</p></div>
-                    <div class="bar-wrapper"><div class="bar" style="height: 88%;"><span>9.26</span></div><p>Sem3</p></div>
-                    <div class="bar-wrapper"><div class="bar" style="height: 95%;"><span>8.26</span></div><p>Sem4</p></div>
-                    <div class="bar-wrapper"><div class="bar" style="height: 92%;"><span>9.26</span></div><p>Sem5</p></div>
+                    <!-- Adjusted bar heights to match the SPI (SPI * 10 = %) -->
+                    <div class="bar-wrapper"><div class="bar" style="height: 75.8%;"><span>7.58</span></div><p>Sem1</p></div>
+                    <div class="bar-wrapper"><div class="bar" style="height: 74.5%;"><span>7.45</span></div><p>Sem2</p></div>
+                    <div class="bar-wrapper"><div class="bar" style="height: 92.6%;"><span>9.26</span></div><p>Sem3</p></div>
+                    <div class="bar-wrapper"><div class="bar" style="height: 82.6%;"><span>8.26</span></div><p>Sem4</p></div>
+                    <div class="bar-wrapper"><div class="bar" style="height: 92.6%;"><span>9.26</span></div><p>Sem5</p></div>
                 </div>
             </div>
             
@@ -83,7 +88,7 @@
 
         <section id="projects" class="sec-padding">
             <div class="glass-base">
-                <h2 class="section-title">Work & Logic</h2>
+                <h2 class="section-title">Projects</h2>
                 <div class="project-grid">
                     <div class="project-card">
                         <div class="video-container">
@@ -127,7 +132,7 @@
 
         <section id="certificates" class="sec-padding">
             <div class="glass-base">
-                <h2 class="section-title">Verified Badges</h2>
+                <h2 class="section-title">Certificates</h2>
                 <div class="cert-grid">
                     <div class="cert-item"><i class="fas fa-microchip"></i> <h4>Critical Thinking in the AI Era</h4></div>
                     <div class="cert-item"><i class="fas fa-shield-halved"></i> <h4>Generative AI Fundamentals</h4></div>
