@@ -35,7 +35,7 @@
                     <a href="https://github.com/bhavindama" class="glow-hover"><i class="fab fa-github"></i></a>
                     <a href="https://linkedin.com/in/bhavin-dama-23bd" class="glow-hover"><i class="fab fa-linkedin"></i></a>
                 </div>
-<a href="resume1.pdf" class="resume-btn led-blink" data-tooltip="Download resume for more details" target="_blank">RESUME</a>            </div>
+<a href="resume.pdf" class="resume-btn led-blink" data-tooltip="Download resume for more details" target="_blank">RESUME</a>            </div>
         </div>
     </nav>
 
@@ -142,19 +142,35 @@
         </section>
 
         <section id="contact" class="sec-padding">
-            <div class="glass-base contact-terminal">
-                <h2 class="section-title">Initialize Contact</h2>
-                <form class="terminal-form">
-                    <input type="text" placeholder="NAME" required>
-                    <input type="email" placeholder="EMAIL_ID" required>
-                    <textarea placeholder="TYPE_YOUR_MESSAGE..." rows="5" required></textarea>
-                    <button type="submit" class="action-btn">TRANSMIT</button>
-                </form>
+    <div class="glass-base contact-terminal">
+        <h2 class="section-title">Initialize Contact</h2>
+        
+        <div class="contact-flex-container" style="display: flex; gap: 40px; align-items: center; flex-wrap: wrap; margin-top: 30px;">
+            
+            <div class="profile-side" style="flex: 1; text-align: center; min-width: 250px;">
+                <div class="profile-frame" style="width: 180px; height: 180px; border-radius: 50%; border: 2px solid var(--accent); overflow: hidden; margin: 0 auto 15px; box-shadow: 0 0 20px rgba(0, 242, 254, 0.3);">
+                    <img src="bhavin.jpg" alt="Bhavin Dama" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <p style="font-size: 0.8rem; color: var(--accent);"><span class="dot" style="height: 8px; width: 8px; background: #00ff00; border-radius: 50%; display: inline-block; margin-right: 5px; box-shadow: 0 0 8px #00ff00;"></span> TRANSMISSION CHANNEL: ONLINE</p>
             </div>
-        </section>
+
+            <div class="form-side" id="contact-wrapper" style="flex: 2; min-width: 300px;">
+                <form id="fs-form" action="https://formspree.io/f/xjgejzgq" method="POST" class="terminal-form">
+                    <input type="text" name="name" placeholder="NAME" required>
+                    <input type="email" name="email" placeholder="EMAIL_ID" required>
+                    <textarea name="message" placeholder="TYPE_YOUR_MESSAGE..." rows="5" required></textarea>
+                    <button type="submit" id="submit-btn" class="action-btn">TRANSMIT</button>
+                </form>
+                <div id="success-msg" style="display: none; text-align: center; padding: 20px;">
+                    <h3 style="color: var(--accent);">TRANSMISSION SUCCESSFUL</h3>
+                    <p>Data packet received. I will respond shortly.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
     </main>
 
     <script src="portfolio.js"></script>
 </body>
 </html>
-

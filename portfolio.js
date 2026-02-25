@@ -90,4 +90,50 @@ document.addEventListener('DOMContentLoaded', () => {
         canvas.height = window.innerHeight;
         init();
     });
+    // --- ADD THIS AT THE BOTTOM OF YOUR JS ---
+
+    const contactForm = document.querySelector('.terminal-form'); // Targets your contact form
+    
+    if (contactForm) {
+        contactForm.addEventListener("submit", async function(event) {
+            event.preventDefault(); // Prevents the page from reloading
+            
+            const submitBtn = contactForm.querySelector('button');
+            const originalBtnText = submitBtn.innerHTML;
+            
+            // Visual feedback for the user
+            submitBtn.innerHTML = "TRANSMITTING...";
+            submitBtn.disabled = true;
+
+            const data = new FormData(event.target);
+
+            fetch("https://formspree.io/f/xjgejzgq", {
+                method: 'POST',
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    // Hide the form and show a success message
+                    contactForm.innerHTML = `
+                        <div style="text-align: center; padding: 20px; animation: fadeInUp 0.5s forwards;">
+                            <h3 style="color: var(--accent); margin-bottom: 10px;">TRANSMISSION SUCCESSFUL</h3>
+                            <p style="color: white; font-size: 0.9rem;">Packet received. I will respond shortly.</p>
+                        </div>
+                    `;
+                } else {
+                    // Handle server errors
+                    submitBtn.innerHTML = "RETRY TRANSMISSION";
+                    submitBtn.disabled = false;
+                    alert("System Error: Could not transmit data.");
+                }
+            }).catch(error => {
+                // Handle network errors
+                submitBtn.innerHTML = "RETRY TRANSMISSION";
+                submitBtn.disabled = false;
+                alert("Network Error: Please check your connection.");
+            });
+        });
+    }
 });
